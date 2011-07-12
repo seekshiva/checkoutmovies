@@ -1,0 +1,23 @@
+body {background-color:#9ad; font-size:small; font-family:"Georgia,sans-serif";}
+
+.floatButton {float:right; padding:2px; background-color:#118; color:#fff; cursor:pointer; font-size:x-small; }
+
+#wrapper {width:760px; margin-top:100px; margin-left:100px; margin-bottom:100px; background-color:#fff; min-height:700px; }
+
+/* suggest to friends */
+#suggestFriend {float:right; margin:23px; width:280px; border:1px solid #bbb; }
+#suggestFriend h4 {margin:0; text-align:center; padding:3px; background-color:#bbf; }
+#friendSearch {border:1px solid #bbb; margin:5px; font-size:small; padding:2px; color:#777; width:260px; }
+#friendSearch:focus {color:#333; }
+#friendsDP {}
+#friendsDP a {width:80px; height:100px; display:inline-block; margin:3px; overflow:hidden; }
+
+/* movie suggestion list */
+#movieSuggestionList {padding:20px; padding-right:280px; }
+.suggestion {width:400px; margin:3px; padding:2px; border:1px solid #bbb; display:none;}
+.suggestion:hover {background-color:#cdf; }
+.removeMovie {opacity:.6; }
+.suggestion:hover .removeMovie {opacity:.8; }
+
+.imdblink {opacity:.4; }
+.suggestion:hover .imdblink {opacity:.9; }
