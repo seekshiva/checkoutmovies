@@ -71,15 +71,10 @@ function refreshSuggestList()
 {
     var boundx = 80;
     var boundy = 100;
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
-    $("<a><img src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
+    
+    for(i=1;i<=6;i++)
+	$("<a><img id=\"friend_" + i + "\" src=\"images/dp.jpg\"></a>").appendTo("#friendsDP");
+
     
     for(i=0;i<$("#friendsDP a img").length;i++)
     {
@@ -103,4 +98,72 @@ function refreshSuggestList()
 	}
 	el.style.cssText = csstext;
     }
+    addDragndrop();
+}
+
+function addDragndrop()
+{
+    links = $("#friendsDP a img");
+    for(i=0;i<$("#friendsDP a img").length;i++)
+    {
+	var el = links[i];
+	el.setAttribute("draggable","true");
+	el.addEventListener("dragstart", handleDragstart);
+    }
+    
+    
+    var bin = document.getElementById("dropable1");
+    bin.setAttribute("dropzone","move s:text");
+    bin.addEventListener("dragover",handleDragover);
+    bin.addEventListener("dragenter",handleDragenter);//for IE
+    bin.addEventListener("dragleave",handleDragleave);
+    bin.addEventListener("drop",handleDrop);
+}
+
+function handleDragstart(e) {
+    console.log("transfer started... " + this.id);
+    e.dataTransfer.dropEffect = "move";
+    e.dataTransfer.effectsAllowed = "copyMove";
+    e.dataTransfer.setData("Text",this.id);
+}
+
+function handleDragover(e)
+{
+    if(e.preventDefault) e.preventDefault();
+    e.stopPropagation();
+    this.className = "over";
+    e.dataTransfer.dropEffect = "move";
+    return false;
+}
+
+function handleDragenter(e)
+{
+    this.className = "over";
+    return false;
+}
+
+function handleDragleave(e)
+{
+    this.className = "";
+}
+
+function handleDrop(e)
+{
+    if(e.preventDefault) e.preventDefault();
+    e.stopPropagation();
+    this.className = "";
+    createAskFriend(e.dataTransfer.getData("Text"));
+}
+
+function createAskFriend(id)
+{
+    if(!$("#" + id).length) return;
+    var url = $("#" + id).attr("src");
+    $("<div><img src=\"" + url + "\"><span class=\"name\">" + id + "</span></div>").appendTo("#askFriendsList").hide(0).css({
+	opacity:.1
+    }).slideDown(400,function() {
+	$(this).animate({
+	    opacity:1
+	},300);
+    });
 }
