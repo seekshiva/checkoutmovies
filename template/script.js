@@ -108,16 +108,16 @@ function addDragndrop()
     {
 	var el = links[i];
 	el.setAttribute("draggable","true");
-	el.addEventListener("dragstart", handleDragstart);
+	el.addEventListener("dragstart", handleDragstart,false);
     }
     
     
     var bin = document.getElementById("dropable1");
     bin.setAttribute("dropzone","move s:text");
-    bin.addEventListener("dragover",handleDragover);
-    bin.addEventListener("dragenter",handleDragenter);//for IE
-    bin.addEventListener("dragleave",handleDragleave);
-    bin.addEventListener("drop",handleDrop);
+    bin.addEventListener("dragover",handleDragover,false);
+    bin.addEventListener("dragenter",handleDragenter,false);//for IE
+    bin.addEventListener("dragleave",handleDragleave,false);
+    bin.addEventListener("drop",handleDrop,false);
 }
 
 function handleDragstart(e) {
@@ -130,7 +130,7 @@ function handleDragstart(e) {
 function handleDragover(e)
 {
     if(e.preventDefault) e.preventDefault();
-    e.stopPropagation();
+    if(e.stopPropagation) e.stopPropagation();
     this.className = "over";
     e.dataTransfer.dropEffect = "move";
     return false;
@@ -150,7 +150,7 @@ function handleDragleave(e)
 function handleDrop(e)
 {
     if(e.preventDefault) e.preventDefault();
-    e.stopPropagation();
+    if(e.stopPropagation) e.stopPropagation();
     this.className = "";
     createAskFriend(e.dataTransfer.getData("Text"));
 }
